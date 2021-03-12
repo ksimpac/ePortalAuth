@@ -8,32 +8,40 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    protected $attributes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    public function __construct($attributes)
+    {
+        $this->attributes = $attributes;
+    }
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function getAuthIdentifierName()
+    {
+        return 'STU_ID';
+    }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function getAuthIdentifier()
+    {
+        return $this->attributes[$this->getAuthIdentifierName()];
+    }
+
+    public function getAuthPassword()
+    {
+        return null;
+    }
+
+    public function getRememberToken()
+    {
+        return '';
+    }
+
+    public function setRememberToken($value)
+    {
+        return '';
+    }
+
+    public function getRememberTokenName()
+    {
+        return '';
+    }
 }
