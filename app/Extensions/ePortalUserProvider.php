@@ -9,7 +9,7 @@ use App\Classes;
 
 class ePortalUserProvider implements UserProvider
 {
-    private $token, $class, $years, $months, $days;
+    private $token, $years, $months, $days;
 
     public function __construct()
     {
@@ -22,14 +22,17 @@ class ePortalUserProvider implements UserProvider
     {
         return new User($identifier);
     }
+
     public function retrieveByToken($identifier, $token)
     {
         return null;
     }
+
     public function updateRememberToken(Authenticatable $user, $token)
     {
         return null;
     }
+
     public function retrieveByCredentials(array $credentials)
     {
         if (!$this->validation($credentials)) {
