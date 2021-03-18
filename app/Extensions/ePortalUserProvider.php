@@ -96,7 +96,7 @@ class ePortalUserProvider implements UserProvider
         $sch_type = (int)$user->SCH_TYPE;
         $dep_id = (int)$user->DEP_ID;
         $dep_appr = Classes::where('SCH_TYPE', $sch_type)
-            ->where('DEP_ID', $dep_id)->first()->DEP_ABBR;
+            ->where('DEP_ID', $dep_id)->first()->DEP_APPR;
         $isDepartmentOfDMStudent = $dep_appr == '流管系' || $dep_appr == '流管所';
 
         if ($isDepartmentOfDMStudent) {
@@ -108,7 +108,7 @@ class ePortalUserProvider implements UserProvider
         $conventChinese = ['', '一', '二', '三', '四'];
 
         if ($sch_type == 3) {
-            $class_name = ["", "A", "B", "C", "D"];
+            $class_name = ['', 'A', 'B', 'C', 'D'];
             $sch = $class_name[$class_no];
             $class_deg += 2;
         }

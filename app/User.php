@@ -17,12 +17,12 @@ class User extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'STU_ID';
+        return null;
     }
 
     public function getAuthIdentifier()
     {
-        return $this->attributes[$this->getAuthIdentifierName()];
+        return $this->attributes;
     }
 
     public function getAuthPassword()
