@@ -95,11 +95,11 @@ class ePortalUserProvider implements UserProvider
     {
         $sch_type = (int)$user->SCH_TYPE;
         $dep_id = (int)$user->DEP_ID;
-        $dep_appr = Classes::where('SCH_TYPE', $sch_type)
-            ->where('DEP_ID', $dep_id)->first()->DEP_APPR;
-        $isDepartmentOfDMStudent = $dep_appr == '流管系' || $dep_appr == '流管所';
+        $dep_abbr = Classes::where('SCH_TYPE', $sch_type)
+            ->where('DEP_ID', $dep_id)->first()->DEP_ABBR;
+        $isNotDepartmentOfDMStudent = $dep_abbr != '流管系' && $dep_abbr != '流管所';
 
-        if ($isDepartmentOfDMStudent) {
+        if ($isNotDepartmentOfDMStudent) {
             return false;
         }
 
@@ -113,7 +113,7 @@ class ePortalUserProvider implements UserProvider
             $class_deg += 2;
         }
 
-        switch ($dep_appr) {
+        switch ($dep_abbr) {
             case '流管系':
                 $user->identify = '流管' . $conventChinese[$class_deg] . ($sch ?? $class_no);
                 break;
@@ -131,9 +131,9 @@ class ePortalUserProvider implements UserProvider
         if ($serv_type != 2) return false;
         $sch_type = (int)$user->SCH_TYPE;
         $dep_id = (int)$user->DEP_ID;
-        $dep_appr = Classes::where('SCH_TYPE', $sch_type)
+        $dep_abbr = Classes::where('SCH_TYPE', $sch_type)
             ->where('DEP_ID', $dep_id)->first()->DEP_ABBR;
-        $user->identify = $dep_appr == '流管系' ? '本系老師' : '外系老師';
+        $user->identify = $dep_abbr == '流管系' ? '本系老師' : '外系老師';
         return true;
     }
 }
